@@ -2,14 +2,25 @@
 
 {% block content %}
 <style>
+   body {
+         background-color: #99ccff;
+    }
     #top_header {
         text-align: center;
+        font-family: Garamond, cursive;
+        font-weight: bold;
+    }
+    #links {
+        font-size: 40px;
+    }
+    p {
+
     }
 
 </style>
 
 
-<h1 id="top_header">Blogs</h1>
+<h1 id="top_header"><em>Blogs<em></h1>
 
 
 {% if blogs|length == 0 %}
@@ -18,12 +29,13 @@
 
         {%  for blog in blogs %}
 
-            <h1>{{blog.title}}</h1>
+            <a href='{{url_for('blog_entry', title=blog.title, body=blog.body)}}'id="links">{{blog.title}}</a>
         
-
+            <!--<p>{{blog.id}}</p>-->
             <p>{{blog.body}}</p>
                 
         {% endfor %}
 
     {% endif %}
+
 {% endblock %}

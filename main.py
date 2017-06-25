@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -22,10 +22,17 @@ class Blog(db.Model):   #builds class for blog objects
 @app.route('/blog', methods=['POST', 'GET'])  #main/home page for blog. Displays all blog posts
 def blog():
     blogs = Blog.query.all()
-
+    blog_id=Blog.query.filter_by(id).all()
+    if request.method =='GET':
+        #blogs = Blog.query.all()
+    #title_display = request.args.get('id=')
+    #body_display = request.args.get('id=')
+    #return ("blog_entry.html", title_display=title_display, body_display=body_display)
     #title = request.form['title'] #gets title from form on /newpost
     #body = request.form['body'] #gets body from form on /newpost
-    return render_template('blog.html', blogs=blogs)
+        return render_template('blog.html', blogs=blogs)
+    #if :
+       #return render_template('blog_entry.html', title= , body= )
 
  
 
@@ -35,7 +42,6 @@ def newpost():
     body_error = ''
     if request.method == 'POST':
         make_title = request.form['title'] #gets title from form on /newpost
-        #new_title = Blog(make_titl)
         make_body = request.form['body'] #gets body from form on /newpost
         if make_body == '':
             body_error = "Please give a title"
@@ -46,15 +52,22 @@ def newpost():
             new_blog = Blog(make_title, make_body)
             db.session.add(new_blog)  #adds and commits both title and body to the database 
             db.session.commit()
-            return redirect('/blog')
+            return render_template('blog_entry.html', title=make_title , body=make_body) #direct to new post made after creation
         else:
             return render_template("newpost.html", title_error=title_error, body_error=body_error)
 
     else:
-    #body = blog.query.filter_by().all()
+        
+        #title=Blog.query.filter_by(id={{blog.id}}).all()
+        #body=Blog.query.filter_by(id={{blog.id}}).all()
         return render_template('newpost.html') #displays new post form and sends it title and body
-  
 
+
+@app.route('/blog_entry', methods=['POST', 'GET'])
+def blog_entry():
+    body=request.args.get('title')
+    title=request.args.get('body')
+    return render_template('blog_entry.html', title=title, body=body)
 
     
 if __name__ == '__main__': #run app

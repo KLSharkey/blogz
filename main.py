@@ -8,37 +8,45 @@ app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 
 
-class Task(db.Model):
+class Blog(db.Model):   #builds class for blog objects
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True) #prim key to differentiate blog posts
     title = db.Column(db.String(120))
     body = db.Column(db.String(500))
 
-    def __init__(self, title, body):
+    def __init__(self, title, body): #initialize blog objects
         self.title = title
         self.body = body
 
 
-@app.route('/blog', methods=['POST', 'GET'])
+@app.route('/blog', methods=['POST', 'GET'])  #main/home page for blog. Displays all blog posts
 def blog():
-    blogs = build_a_blog.query.all()
-    return render_template('blog.html')
+    blogs = Blog.query.all()
+
+    #title = request.form['title'] #gets title from form on /newpost
+    #body = request.form['body'] #gets body from form on /newpost
+    return render_template('blog.html', blogs=blogs)
 
  
 
-@app.route('/newpost', methods=['POST', 'GET'])
+@app.route('/newpost', methods=['POST', 'GET']) #where you create blogs with title and body
 def newpost():
     if request.method == 'POST':
-        title = request.form['title']
-        body = request.form['body']
-        db.session.add(title)
-        db.session.add(body)
+        make_title = request.form['title'] #gets title from form on /newpost
+        #new_title = Blog(make_titl)
+        make_body = request.form['body'] #gets body from form on /newpost
+        new_blog = Blog(make_title, make_body)
+        db.session.add(new_blog)  #adds and commits both title and body to the database 
+        #db.session.add(new_body)
         db.session.commit()
+        return redirect('/blog')
 
-    body = build_a_blog.query.filter_by().all()
-    return render_template('blog_entry.html', title=title, body=body)
+    else:
+    #body = blog.query.filter_by().all()
+        return render_template('newpost.html') #displays new post form and sends it title and body
+  
 
 
     
-if __name__ == '__main__':
+if __name__ == '__main__': #run app
     app.run()

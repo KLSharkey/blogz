@@ -2,19 +2,21 @@
 
 {% block content %}
 
-<a href="/blog">Main blog page</a>
-<a href="/newpost">Write a new blog entry</a>
 
 <h1>Add a BLog Entry</h1>
 
 <form method='POST'>
     <label for="title">
     Title:
-        <input type="text" name='title' />
+        <input type="text" name='title' id='title' />
     </label>
+    <p>
     <label for="body">Body:
-        <input type="text" value='body' />
+        <textarea id='body' name="body" value='body'></textarea>
+    </p>
+    <p>
         <input type="submit" value="Submit!">
+    </p>
 </form>
 
 

@@ -31,15 +31,24 @@ def blog():
 
 @app.route('/newpost', methods=['POST', 'GET']) #where you create blogs with title and body
 def newpost():
+    title_error = ''
+    body_error = ''
     if request.method == 'POST':
         make_title = request.form['title'] #gets title from form on /newpost
         #new_title = Blog(make_titl)
         make_body = request.form['body'] #gets body from form on /newpost
-        new_blog = Blog(make_title, make_body)
-        db.session.add(new_blog)  #adds and commits both title and body to the database 
-        #db.session.add(new_body)
-        db.session.commit()
-        return redirect('/blog')
+        if make_body == '':
+            body_error = "Please give a title"
+        if make_title == '':
+            title_error = "Please enter text into the body"
+        
+        if title_error=='' and body_error=='':    
+            new_blog = Blog(make_title, make_body)
+            db.session.add(new_blog)  #adds and commits both title and body to the database 
+            db.session.commit()
+            return redirect('/blog')
+        else:
+            return render_template("newpost.html", title_error=title_error, body_error=body_error)
 
     else:
     #body = blog.query.filter_by().all()

@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<style>
+    .error{
+        color: red;
+    }
+</style>
 
 <h1>Add a BLog Entry</h1>
 
@@ -10,10 +14,13 @@
     Title:
         <input type="text" name='title' id='title' />
     </label>
+    <p class="error">{{title_error}}</p>
     <p>
     <label for="body">Body:
         <textarea id='body' name="body" value='body'></textarea>
+    </lable>
     </p>
+    <p class="error">{{body_error}}</p>
     <p>
         <input type="submit" value="Submit!">
     </p>

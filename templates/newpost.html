@@ -2,8 +2,27 @@
 
 {% block content %}
 <style>
+    body{
+        background-color: #99ccff;
+    }
     .error{
         color: red;
+    }
+    form, h1{
+        text-align: center;
+    }
+    h1{
+        font-size: 50px;
+    }
+    label{
+        font-size: 20px;
+    }
+    textarea {
+        width: 300px;
+        height: 150px;
+    }
+    .formfield * {
+        vertical-align: middle;
     }
     
 </style>
@@ -16,7 +35,7 @@
         <input type="text" name='title' id='title' />
     </label>
     <p class="error">{{title_error}}</p>
-    <p>
+    <p class='formfield'>
     <label for="body">Body:
         <textarea id='body' name="body" value='body'></textarea>
     </lable>

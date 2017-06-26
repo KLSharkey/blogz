@@ -4,23 +4,32 @@
 <style>
    body {
          background-color: #99ccff;
+
+    }
+    h1, p{
+        text-align: center;
     }
     #top_header {
         text-align: center;
-        font-family: Garamond, cursive;
-        font-weight: bold;
+        
+        font-size: 60px;
     }
     #links {
         font-size: 40px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+        
     }
     p {
-
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    .link{
+        text-align: center;
     }
 
 </style>
 
 
-<h1 id="top_header"><em>Blogs<em></h1>
+<h1 id="top_header">Blogs</h1>
 
 
 {% if blogs|length == 0 %}
@@ -28,9 +37,9 @@
     {% else %}
 
         {%  for blog in blogs %}
-
-            <a href='/blog?id={{blog.id}}'id="links"name ='links'>{{blog.title}}</a>
-        
+        <div class='link'>'
+            <a href='/blog?id={{blog.id}}'id="links"name ='links'><em>{{blog.title}}</em></a>
+        </div>
             <!--<p>{{blog.id}}</p>-->
             <p name='blog_id'>{{blog.body}}</p>
             <form method='GET' action='/blog'>

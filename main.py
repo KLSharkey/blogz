@@ -1,6 +1,5 @@
 from flask import Flask, request, redirect, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
-
 app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:klwwlk@localhost:8889/build-a-blog'
@@ -22,17 +21,21 @@ class Blog(db.Model):   #builds class for blog objects
 @app.route('/blog', methods=['POST', 'GET'])  #main/home page for blog. Displays all blog posts
 def blog():
     blogs = Blog.query.all()
-    blog_id=Blog.query.filter_by(id).all()
-    if request.method =='GET':
-        #blogs = Blog.query.all()
-    #title_display = request.args.get('id=')
-    #body_display = request.args.get('id=')
+    blog_id = request.args.get('id')
+    if blog_id == None:
+    #if request.method =='GET':
+        #body = Blog.body
+        #title = Blog.title
     #return ("blog_entry.html", title_display=title_display, body_display=body_display)
     #title = request.form['title'] #gets title from form on /newpost
     #body = request.form['body'] #gets body from form on /newpost
         return render_template('blog.html', blogs=blogs)
-    #if :
-       #return render_template('blog_entry.html', title= , body= )
+
+
+    blog_id = request.args.get('id')
+    if blog_id != None:
+        blog=Blog.query.get(blog_id)
+        return render_template('blog_entry.html', blog=blog)
 
  
 
@@ -52,7 +55,12 @@ def newpost():
             new_blog = Blog(make_title, make_body)
             db.session.add(new_blog)  #adds and commits both title and body to the database 
             db.session.commit()
-            return render_template('blog_entry.html', title=make_title , body=make_body) #direct to new post made after creation
+            #blog = session.query(ObjectRes).order_by(ObjectRes.id.desc()).first()
+            #blog_id=Blog.query.filter_by(body=make_body).first()
+            
+            blog_id=Blog.query.get('id')
+            
+            return render_template('blog_entry.html', blog=new_blog) #direct to new post made after creation
         else:
             return render_template("newpost.html", title_error=title_error, body_error=body_error)
 

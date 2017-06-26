@@ -29,10 +29,13 @@
 
         {%  for blog in blogs %}
 
-            <a href='{{url_for('blog_entry', title=blog.title, body=blog.body)}}'id="links">{{blog.title}}</a>
+            <a href='/blog?id={{blog.id}}'id="links"name ='links'>{{blog.title}}</a>
         
             <!--<p>{{blog.id}}</p>-->
-            <p>{{blog.body}}</p>
+            <p name='blog_id'>{{blog.body}}</p>
+            <form method='GET' action='/blog'>
+                <input type="hidden" name='blog_id' id='blog_id' value={{blog.id}} />
+            </form>
                 
         {% endfor %}
 

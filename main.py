@@ -58,9 +58,9 @@ def newpost():
             #blog = session.query(ObjectRes).order_by(ObjectRes.id.desc()).first()
             #blog_id=Blog.query.filter_by(body=make_body).first()
             
-            blog_id=Blog.query.get('id')
-            
+            blog_id=new_blog.id
             return render_template('blog_entry.html', blog=new_blog) #direct to new post made after creation
+            #return redirect(url_for('blog_entry', id=new_blog.id))
         else:
             return render_template("newpost.html", title_error=title_error, body_error=body_error)
 
@@ -71,11 +71,11 @@ def newpost():
         return render_template('newpost.html') #displays new post form and sends it title and body
 
 
-@app.route('/blog_entry', methods=['POST', 'GET'])
-def blog_entry():
-    body=request.args.get('title')
-    title=request.args.get('body')
-    return render_template('blog_entry.html', title=title, body=body)
+#@app.route('/blog_entry', methods=['POST', 'GET'])
+#def blog_entry():
+    #body=request.args.get('title')
+    #title=request.args.get('body')
+    #return render_template('blog_entry.html', title=title, body=body)
 
     
 if __name__ == '__main__': #run app

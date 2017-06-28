@@ -6,10 +6,7 @@
     form, h1{
         text-align: center;
     }
-    h1 {
-        font-size: 50px;
-        background-color: #99ccff;
-    }
+    
     label{
         font-size: 20px;
     }
@@ -23,6 +20,10 @@
     body {
          background-image: url('../images/wild_flowers.png');
 
+    }
+     #new_header {
+        font-size: 50px;
+        background-color: #99ccff;
     }
     
 </style>

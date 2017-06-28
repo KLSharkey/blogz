@@ -1,0 +1,28 @@
+<style>
+    
+    .error{
+        color: red;
+    }
+    form, h1{
+        text-align: center;
+    }
+    h1 {
+        font-size: 50px;
+        background-color: #99ccff;
+    }
+    label{
+        font-size: 20px;
+    }
+    textarea {
+        width: 300px;
+        height: 150px;
+    }
+    .formfield * {
+        vertical-align: middle;
+    }
+    body {
+         background-image: url('../images/wild_flowers.png');
+
+    }
+    
+</style>

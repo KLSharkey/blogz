@@ -1,34 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<style>
-    body{
-        background-image: url('static/images/wild_flowers.png');
-    }
-    .error{
-        color: red;
-    }
-    form, h1{
-        text-align: center;
-    }
-    h1{
-        font-size: 50px;
-        background-color: #99ccff;
-    }
-    label{
-        font-size: 20px;
-    }
-    textarea {
-        width: 300px;
-        height: 150px;
-    }
-    .formfield * {
-        vertical-align: middle;
-    }
-    
-</style>
 
-<h1 id="top_header">Add a Blog Entry</h1>
+    <link rel="stylesheet" type="text/css" href="../static/styles/newpost.css"
+
+
+<h1>Add a Blog Entry</h1>
 
 <form action='/newpost' method='POST'>
     <label for="title">

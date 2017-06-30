@@ -21,10 +21,15 @@
     }
     .link{
         text-align: center;
+
     }
     body {
          background-image: url('../images/congruent_pentagon.png');
 
+    }
+    #author{
+        color: grey;
+        font-size: 15px;
     }
 
 </style>

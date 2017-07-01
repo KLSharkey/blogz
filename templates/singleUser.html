@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+{% if user_blogs|length == 0 %}
+    <p>No blogs yet</p>
+    {% else %}
+
+    {%  for blog in user_blogs %}
+
+        <h1><a href='/blog?id={{blog.id}}'>{{blog.title}}</a></h1>
+        
+        <p >{{blog.body}}</p>
+
+    {% endfor %}
+
+
+
+ {% endif %}
+
+<p> Author {{user_name.username}}</p>
+
+
+{% endblock %}

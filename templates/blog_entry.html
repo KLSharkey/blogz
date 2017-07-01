@@ -4,11 +4,15 @@
 
     <link rel="stylesheet" type="text/css" href="../static/styles/blog_entry.css">
 
-<div class='text_area'>'
+<div class='text_area'>
+
 <h1 id='header'>{{blog.title}}</h1>
-<!--<p>{{blog_id}}</p>-->
+
 <p>{{blog.body}}</p>
-<p>{{author}}</p>
+
+
+<p>Author: <a href='/blog?owner={{blog.owner_id}}'>{{blog.username.username}}</a>
+            
 </div>
 
 {% endblock %}

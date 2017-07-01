@@ -7,13 +7,22 @@
              <label for="username">Username</label>
              <input  type="text" id="username" name="username" value="{{request.form['username']}}">
                
-
+             </p>
             <p>
             <label for="password">Password</label>
             <input type="password" id="password" name="password" value="{{password}}">
 
             <input type="submit" value="Login"/> 
+            </p>
+        
 </form
+
+<a href="/signup">
+   <button>Create an Account!</button>
+</a>
+<<!--form action="/signup" method="get">
+    <input type="submit" value="Create and account!" name="Submit" id="direct_signup" />
+</form>-->
 
 
 {% endblock %}

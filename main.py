@@ -31,8 +31,8 @@ class User(db.Model):
         self.password = password
 
 @app.before_request  #special handler to run first!
-def require_login(): #special, runs before EVERY request WARNING can get stuck in never-ending request
-    allowed_routes = ['login','signup', '/'] #user doesn't have to login to see these. stops never-ending request above
+def require_login():
+    allowed_routes = ['login','signup', 'index'] #user doesn't have to login to see these
     if request.endpoint not in allowed_routes and 'username' not in session: #if there is not a key called email in the session
         return redirect('/login') #push unlogged users to login page
 
@@ -55,7 +55,7 @@ def login():
         user=User.query.filter_by(username=username).first() #check if username in use yet
         if username and password == user.password: #if username in db and pass correct...
             session['username'] = username #starts session
-            return redirect('/newpost') #redirect to blog page
+            return redirect('/newpost', username=username) #redirect to blog page
         elif not username:
             flash("Username not yet registered", 'error')
             return redirect('/login')
@@ -113,19 +113,34 @@ def signup():
 def blog(blog_id=None):
     blogs = Blog.query.all()
     blog_id = request.args.get('id')
-    #owner_name = request.args.get('owner')
-    author_info = User.query.filter_by(id=Blog.owner_id).first()
-    author = author_info.username
-    if blog_id == None: #if blog not chosen, display all blogs in list
-        return render_template('blog.html', blogs=blogs, author=author)
+    #owner_id = request.form['owner_id']
+    #blog_info = Blog.query.all()
+    #owners_info = User.query.all()
+    #print(owners_info)
+    user_id = request.args.get('owner')
+    #user_name = User.query.filter_by()
+    users = User.query.all()
+    
+    if blog_id == None and user_id == None: #if blog not chosen, display all blogs in list
+        return render_template('blog.html', blogs=blogs, users=users)
 
 
     blog_id = request.args.get('id') #get blog id
     if blog_id != None: #if blog chosen, display it in blog entry
         blog=Blog.query.get(blog_id)
+        blog_info = Blog.query.filter_by(id = blog_id).first()
+        #user_blogs = Blog.query.filter_by(owner_id = user_id).all()
+        user_name = User.query.filter_by(id=blog.owner_id).first()
+        
         return render_template('blog_entry.html', blog=blog)
 
- 
+    #user_id = request.args.get('owner') #get owner id
+    print(user_id)
+    if user_id != None:
+        #blogs = Blog.query.get(user_id)
+        user_blogs = Blog.query.filter_by(owner_id = user_id).all()
+        user_name = User.query.filter_by(id=user_id).first()
+        return render_template('singleUser.html', user_blogs=user_blogs, user_name=user_name)
 
 @app.route('/newpost', methods=['POST', 'GET']) #where you create blogs with title and body
 def newpost():
@@ -135,6 +150,7 @@ def newpost():
         make_title = request.form['title'] #gets title from form on /newpost
         make_body = request.form['body'] #gets body from form on /newpost
         owner = User.query.filter_by(username=session['username']).first()
+        
         if make_body == '':
             body_error = "Please give a title" #defining errors
         if make_title == '':
@@ -147,11 +163,8 @@ def newpost():
             db.session.commit()
             
             blog_id=new_blog.id
-            owner = new_blog.owner_id
-            owner_name = User.query.filter_by(id=owner).first()
-            print(owner)
-            
-            #owner_name = User.query.filter_by(username=username).first()
+            owner = session.get('username')
+           
             return redirect(url_for('blog', id=blog_id, owner=owner)) #direct to new post made after creation
             #return redirect(url_for('blog_entry', id=new_blog.id))
         else:

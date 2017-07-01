@@ -13,19 +13,22 @@
     <p>No blogs yet</p>
     {% else %}
 
-        {%  for blog in blogs %}
-        <div class='link'>'
-            <a href='/blog?id={{blog.id}}'id="links"name ='links'><em>{{blog.title}}</em></a>
+    {%  for blog in blogs %}
+        <div class='link'>
+            <a href= '/blog?id={{blog.id}}' id="links" name ='links'><em>{{blog.title}}</em></a>
         </div>
             <!--<p>{{blog.id}}</p>-->
             <p name='blog_id'>{{blog.body}}</p>
-            <p id = 'author'>Author {{author}}</p>
-            <form method='GET' action='/blog'>
-                <input type="hidden" name='blog_id' id='blog_id' value={{blog.id}} />
-            </form>
+            
+            <p id = 'author'>
+                Author <a href='/blog?owner={{blog.owner_id}}'>{{blog.username.username}}</a>
+            </p> <!--called backref username also 
+            so to get username of blog item, needed to do blog (table) then username(backref), then username (parameter)-->
+            
                 
-        {% endfor %}
+    {% endfor %}
 
-    {% endif %}
+{% endif %}
+
 
 {% endblock %}

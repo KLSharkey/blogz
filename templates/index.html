@@ -2,11 +2,19 @@
 
 {% block content %}
 
-<h1></h1>
+    <link rel="stylesheet" type="text/css" href="static/styles/index.css">
 
-<ul>
+<h1>Current Authors</h1>
+
+<ul id='author_list'>
 {% for user in users %}
-   <li>{{user.username}}</l1>
+
+   <li>
+       <div class='link'>
+            <a href= '/blog?owner={{user.id}}'id="links"name ='links'><em>{{user.username}}</em></a>
+        </div>
+    </li>
+    
 {% endfor %}
 </ul>
 

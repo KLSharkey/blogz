@@ -33,7 +33,7 @@ class User(db.Model):
 @app.before_request  #special handler to run first!
 def require_login():
     allowed_routes = ['login','signup', 'index'] #user doesn't have to login to see these
-    if request.endpoint not in allowed_routes and 'username' not in session: #if there is not a key called email in the session
+    if request.endpoint not in allowed_routes and 'username' not in session and '/static/' not in request.path: #if there is not a key called email in the session
         return redirect('/login') #push unlogged users to login page
 
 
@@ -55,7 +55,7 @@ def login():
         user=User.query.filter_by(username=username).first() #check if username in use yet
         if username and password == user.password: #if username in db and pass correct...
             session['username'] = username #starts session
-            return redirect('/newpost', username=username) #redirect to blog page
+            return redirect('/newpost') #redirect to blog page
         elif not username:
             flash("Username not yet registered", 'error')
             return redirect('/login')

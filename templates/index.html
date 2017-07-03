@@ -2,16 +2,16 @@
 
 {% block content %}
 
-    <link rel="stylesheet" type="text/css" href="static/styles/index.css">
+    <!--<link rel="stylesheet" type="text/css" href="static/styles/base.css">-->
 
-<h1>Current Authors</h1>
+<h1 id='index_head' style='text-align: center;' style='background-color: #cfc5fa;'>Current Authors</h1>
 
-<ul id='author_list'>
+<ul id='author_list' style='text-align: center';>
 {% for user in users %}
 
-   <li>
+   <li style="list-style-type: none;">
        <div class='link'>
-            <a href= '/blog?owner={{user.id}}'id="links"name ='links'><em>{{user.username}}</em></a>
+            <a href= '/blog?owner={{user.id}}'id="index_links"name ='index_links' style='font-size:35px;'><em>{{user.username}}</em></a>
         </div>
     </li>
     

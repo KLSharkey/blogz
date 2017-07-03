@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+    <!--<link rel="stylesheet" type="text/css" href="static/styles/base.css">-->
+
+
+    <h1 id='header_log'  style='background-color: #cfc5fa'>Login</h1>
 <form method="POST">
-            <h1>Login</h1>
+           
             <p>
              <label for="username">Username</label>
              <input  type="text" id="username" name="username" value="{{request.form['username']}}">
@@ -12,17 +17,14 @@
             <label for="password">Password</label>
             <input type="password" id="password" name="password" value="{{password}}">
 
-            <input type="submit" value="Login"/> 
+            <input type="submit" id = 'login_button' value="Login"/> 
             </p>
         
 </form
+<p>
+<a href="{{ url_for('signup') }}" >Create an Account!</a>
+</p>
 
-<a href="/signup">
-   <button>Create an Account!</button>
-</a>
-<<!--form action="/signup" method="get">
-    <input type="submit" value="Create and account!" name="Submit" id="direct_signup" />
-</form>-->
 
 
 {% endblock %}

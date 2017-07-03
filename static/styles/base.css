@@ -1,0 +1,35 @@
+<style>
+
+    #header_log {
+    text-align: center;
+    font-size: 60px;
+    background-color: #cfc5fa;
+    }
+
+    #index_head {
+    background-color: #cfc5fa;
+    }
+
+    h1 {
+    text-align: center;
+    }
+
+    #links {
+    font-size: 70px;
+    }
+
+    #username {
+        font-size: 20px;
+    }
+    #password {
+        font-size: 20px;
+    }
+
+    login_button {
+        font-size: 20px;
+    }
+    #verify {
+        font-size: 20px;
+    }
+
+</style>

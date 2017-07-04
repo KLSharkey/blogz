@@ -32,7 +32,7 @@ class User(db.Model):
 
 @app.before_request  #special handler to run first!
 def require_login():
-    allowed_routes = ['login','signup', 'index'] #user doesn't have to login to see these
+    allowed_routes = ['login','signup', 'index', 'blog'] #user doesn't have to login to see these
     if request.endpoint not in allowed_routes and 'username' not in session and '/static/' not in request.path: #if there is not a key called email in the session
         return redirect('/login') #push unlogged users to login page
 

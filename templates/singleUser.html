@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div id='single_user'>
+<link rel="stylesheet" type="text/css" href="../static/styles/base.css">
 
 <h1 style='font-size: 40px;'>{{user_name.username}}</h1>
 
@@ -19,8 +21,9 @@
 
 
  {% endif %}
-
-<a href='/blog?owner={{user_name.id}}' style='text-align: center;'> Author {{user_name.username}}</a></p>
-
+<div id = 'author_single'>
+    <a href='/blog?owner={{user_name.id}}'> Author {{user_name.username}}</a></p>
+</div>
+</div>
 
 {% endblock %}

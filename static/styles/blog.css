@@ -31,5 +31,8 @@
         color: grey;
         font-size: 15px;
     }
+    #author_single{
+        text-align:center;
+    }
 
 </style>

@@ -1,5 +1,7 @@
 from flask import Flask, request, redirect, render_template, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from hashutils import make_pw_hash, check_pw_hash
+
 app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:password@localhost:8889/blogz'
@@ -23,12 +25,12 @@ class Blog(db.Model):   #builds class for blog objects
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True) #prim key to differentiate blog posts
     username = db.Column(db.String(30))
-    password = db.Column(db.String(30))
+    pw_hash = db.Column(db.String(100))
     blogs = db.relationship('Blog', backref='username' ) #builds relat. between User and Blog
 
     def __init__(self, username, password):
         self.username = username
-        self.password = password
+        self.pw_hash = make_pw_hash(password)
 
 @app.before_request  #special handler to run first!
 def require_login():
@@ -53,7 +55,8 @@ def login():
         username = request.form['username'] #get username/pass
         password = request.form['password']
         user=User.query.filter_by(username=username).first() #check if username in use yet
-        if username and password == user.password: #if username in db and pass correct...
+        if username and check_pw_hash(password, user.pw_hash): 
+        #if username in db and pass correct (checks hash)...
             session['username'] = username #starts session
             return redirect('/newpost') #redirect to blog page
         elif not username:

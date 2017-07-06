@@ -31,5 +31,11 @@
     #verify {
         font-size: 20px;
     }
+    #author_single{
+        text-align: center;
+    }
+    #single_user{
+        background-color: lightskyblue;
+    }
 
 </style>
